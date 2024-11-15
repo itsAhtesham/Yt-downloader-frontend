@@ -1,49 +1,29 @@
-import { useState } from 'react';
-import ytdl from 'ytdl-core';
+import { useState } from "react";
 
 function App() {
-  const [url, setUrl] = useState('');
-  const [videoInfo, setVideoInfo] = useState(null);
-
-  const getVideoInfo = async () => {
-    try {
-      const info: any = await ytdl.getInfo(url);
-      setVideoInfo(info);
-    } catch (error: any) {
-      console.error('Error fetching video info:', error.message);
-    }
-  };
-
-  const downloadVideo = () => {
-    // if (videoInfo) {
-    //   const videoStream = ytdl(url, { quality: 'highest' });
-    //   videoStream.pipe(res); // Replace "res" with the logic to handle the downloaded video (e.g., save to disk).
-    // }
-  };
-
+  const [url, setUrl] = useState("");
+  const [info, setInfo] = useState({});
+  console.log(url);
+  const handleGetInfo = () => {
+    console.log("handleGetInfo called");
+    setInfo({msg: "Info Received"})
+  }
   return (
-    <div className="App">
-      <h1>YouTube Video Downloader</h1>
-      <label>
-        Enter YouTube Video URL:
-        <input
-          type="text"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-        />
-      </label>
-      <button onClick={getVideoInfo}>Get Video Info</button>
+    <>
+      <h1 className="text-3xl font-bold underline text-green-500 text-center bg-gray-100">
+        Hello world!
+      </h1>
+      <br />
+      <label>Url</label>
+      <br />
+      <input type="text" className="border" onChange={(e) => setUrl(e.target.value)}/>
+      <button onClick={handleGetInfo} className="border ml-2">Get Info</button>
 
-      {videoInfo && (
-        <div>
-          <h2>Video Information</h2>
-          {/* <p>Title: {videoInfo.videoDetails.title}</p>
-          <p>Author: {videoInfo.videoDetails.author.name}</p>
-          <p>Duration: {videoInfo.videoDetails.lengthSeconds} seconds</p> */}
-          <button onClick={downloadVideo}>Download Video</button>
-        </div>
-      )}
-    </div>
+      {info && <div>
+        {JSON.stringify(info)}
+        </div>}
+
+    </>
   );
 }
 
