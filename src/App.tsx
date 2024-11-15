@@ -1,12 +1,17 @@
 import { useState } from "react";
+import axios from "axios";
 
 function App() {
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState({});
-  console.log(url);
-  const handleGetInfo = () => {
-    console.log("handleGetInfo called");
-    setInfo({msg: "Info Received"})
+  
+  const handleGetInfo = async () => {
+    try {
+      const resp =  await axios.get('http://192.168.1.14:3000/api/v1');
+      setInfo(resp.data)
+    } catch (e) {
+      console.log(e)
+    }
   }
   return (
     <>
